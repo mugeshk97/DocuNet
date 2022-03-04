@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/1/4f89829f20a2436a80bb9193314b59e7/artifacts
+end_time: 1646364929072
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: 4f89829f20a2436a80bb9193314b59e7
+run_uuid: 4f89829f20a2436a80bb9193314b59e7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1646364912801
+status: 3
+tags: []
+user_id: mugesh
