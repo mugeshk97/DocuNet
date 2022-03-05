@@ -2,7 +2,7 @@ import tensorflow as tf
 gpu = tf.config.experimental.list_physical_devices('GPU')[0]
 if len(gpu) > 0:
     tf.config.experimental.set_memory_growth(gpu, True)
-from utils import DataLoader
+from feature.data_loader import DataLoader
 import json
 import os
 
