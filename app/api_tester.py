@@ -11,7 +11,7 @@ url = "http://127.0.0.1:5000/predict"
 
 
 # single image
-image = cv2.imread("/home/mugesh/IB/DocuNet/raw_data/black_border/00001417.tif")
+image = cv2.imread("/home/mugesh/IB/DocuNet/data/raw_data/good/00000001.TIF")
 # convert image to base64
 _, img_encoded = cv2.imencode('.jpg', image)
 # encode to base64 string
@@ -47,7 +47,7 @@ def predict_image(image):
         return None
 
 # directory of images
-file_directory = "/home/mugesh/IB/DocuNet/raw_data/black_border" # path to the folder containing the images to be tested
+file_directory = "/home/mugesh/IB/DocuNet/data/raw_data/good" # path to the folder containing the images to be tested
 filenames = os.listdir(file_directory)
 for file_ in filenames:
     if file_.split('.')[-1] in ['TIF', 'tif']:
