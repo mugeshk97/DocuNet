@@ -19,7 +19,7 @@ def preprocess_input(input_image, shape, data_format=None):
 
 file_directory = "/home/mugesh/IB/DocuNet/raw_data/black_border" # path to the folder containing the images to be tested
 filenames = os.listdir(file_directory)
-model = tf.keras.models.load_model('/home/mugesh/IB/DocuNet/Model/DocNet_v_1.h5') # path to the model to be tested
+model = tf.keras.models.load_model('/home/mugesh/IB/DocuNet/models/DocNet_v_1.h5') # path to the model to be tested
 df = pd.DataFrame() 
 for file_ in filenames:
     if file_.split('.')[-1] in ['TIF', 'tif']:
@@ -41,4 +41,4 @@ for file_ in filenames:
             comment += 'Shaded, '
         output['image_quality'] = comment
         df = df.append(output, ignore_index= True)
-        df.to_csv("report.csv", index= False)
+        df.to_csv("src/results/report.csv", index= False)

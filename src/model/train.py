@@ -9,7 +9,7 @@ import os
 BATCH_SIZE = 32
 
 data_loader = DataLoader(shape=(360,360), batch_size = BATCH_SIZE) 
-data_loader.load_from_directory("processed_data/")
+data_loader.load_from_directory("/home/mugesh/IB/DocuNet/data/processed_data/")
 data_gen = data_loader.data_generator()
 
 ## Model Architecture
@@ -66,8 +66,8 @@ history = model.fit(
     steps_per_epoch= data_loader.num_files // BATCH_SIZE,
     epochs=10)
 
-model_version = max([int(i) for i in os.listdir('Model/') + [0] ] ) + 1 # get the latest model version
+model_version = max([int(i) for i in os.listdir('/home/mugesh/IB/DocuNet/models/') + [0] ] ) + 1 # get the latest model version
 
 
-model.save(f"Model/DocNet_v_{str(model_version)}.h5")
+model.save(f"/home/mugesh/IB/DocuNet/models/DocNet_v_{str(model_version)}.h5")
 print(f'saved model version {model_version}')
