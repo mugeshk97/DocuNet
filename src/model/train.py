@@ -2,7 +2,7 @@ import tensorflow as tf
 gpu = tf.config.experimental.list_physical_devices('GPU')[0]
 if len(gpu) > 0:
     tf.config.experimental.set_memory_growth(gpu, True)
-from feature.data_loader import DataLoader
+from data_loader import DataLoader
 import json
 import os
 
@@ -66,8 +66,6 @@ history = model.fit(
     steps_per_epoch= data_loader.num_files // BATCH_SIZE,
     epochs=10)
 
-model_version = max([int(i) for i in os.listdir('/home/mugesh/IB/DocuNet/models/') + [0] ] ) + 1 # get the latest model version
-
-
-model.save(f"/home/mugesh/IB/DocuNet/models/DocNet_v_{str(model_version)}.h5")
+model_version = max([int(i) for i in os.listdir('models/') + [0] ] ) + 1 # get the latest model version
+model.save(f"models/{str(model_version)}/DocNet.h5")
 print(f'saved model version {model_version}')
