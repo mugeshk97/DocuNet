@@ -17,15 +17,15 @@ def preprocess_input(input_image, shape, data_format=None):
     return input_image
 
 
-file_directory = "/home/mugesh/IB/DocuNet/data/raw_data/good" # path to the folder containing the images to be tested
+file_directory = "/home/mugesh/IB/DocuNet/data/test_data" # path to the folder containing the images to be tested
 filenames = os.listdir(file_directory)
-model = tf.keras.models.load_model('/home/mugesh/IB/DocuNet/models/1/DocNet_v_1.h5') # path to the model to be tested
+model = tf.keras.models.load_model('/home/mugesh/IB/DocuNet/models/2/DocNet.h5') # path to the model to be tested
 df = pd.DataFrame() 
 for file_ in filenames:
-    if file_.split('.')[-1] in ['TIF', 'tif']:
+    if file_.split('.')[-1] in ['TIF', 'tif', 'JPG', 'jpg', 'png', 'PNG']:
         file_path = os.path.join(file_directory, file_)
         img = cv2.imread(file_path)
-        img = preprocess_input(img, (360, 360))
+        img = preprocess_input(img, (640, 640))
         output  = model.predict(img)
         for i in output.keys():
             output[i] = np.round(output[i][0], 3)  
