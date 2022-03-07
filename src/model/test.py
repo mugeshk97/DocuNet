@@ -17,9 +17,9 @@ def preprocess_input(input_image, shape, data_format=None):
     return input_image
 
 
-file_directory = "/home/mugesh/IB/DocuNet/raw_data/black_border" # path to the folder containing the images to be tested
+file_directory = "/home/mugesh/IB/DocuNet/data/raw_data/good" # path to the folder containing the images to be tested
 filenames = os.listdir(file_directory)
-model = tf.keras.models.load_model('/home/mugesh/IB/DocuNet/models/DocNet_v_1.h5') # path to the model to be tested
+model = tf.keras.models.load_model('/home/mugesh/IB/DocuNet/models/1/DocNet_v_1.h5') # path to the model to be tested
 df = pd.DataFrame() 
 for file_ in filenames:
     if file_.split('.')[-1] in ['TIF', 'tif']:
