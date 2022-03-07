@@ -6,24 +6,24 @@ from data_loader import DataLoader
 import json
 import os
 
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 
-data_loader = DataLoader(shape=(360,360), batch_size = BATCH_SIZE) 
+data_loader = DataLoader(shape=(640,640), batch_size = BATCH_SIZE) 
 data_loader.load_from_directory("/home/mugesh/IB/DocuNet/data/processed_data/")
-data_gen = data_loader.data_generator()
+data_gen = data_loader.data_generator(shape=(640,640), batch_size = BATCH_SIZE)
 
 ## Model Architecture
-input_ = tf.keras.layers.Input(shape=(360,360,1), name ="input")
+input_ = tf.keras.layers.Input(shape=(640,640,1), name ="input")
 
-conv_1 = tf.keras.layers.Conv2D(filters = 64, kernel_size = (3,3), padding = "same", name="conv_1")(input_)
+conv_1 = tf.keras.layers.Conv2D(filters = 32, kernel_size = (3,3), padding = "same", name="conv_1")(input_)
 act_1 = tf.keras.layers.Activation('relu', name='act_1')(conv_1)
 pool_1 = tf.keras.layers.MaxPool2D(pool_size = (2,2), name = "pool_1")(act_1)
 
-conv_2 = tf.keras.layers.Conv2D(filters = 64, kernel_size = (3,3), padding = "same" , name="conv_2")(pool_1)
+conv_2 = tf.keras.layers.Conv2D(filters = 32, kernel_size = (3,3), padding = "same" , name="conv_2")(pool_1)
 act_2 = tf.keras.layers.Activation('relu', name='act_2')(conv_2)
 pool_2 = tf.keras.layers.MaxPool2D(pool_size = (2,2), name = "pool_2")(act_2)
 
-conv_3 = tf.keras.layers.Conv2D(filters = 32, kernel_size = (3,3), padding = "same",  name="conv_3")(pool_2)
+conv_3 = tf.keras.layers.Conv2D(filters = 16, kernel_size = (3,3), padding = "same",  name="conv_3")(pool_2)
 act_3 = tf.keras.layers.Activation('relu', name='act_3')(conv_3)
 pool_3 = tf.keras.layers.MaxPool2D(pool_size = (2,2), name = "pool_3")(act_3)
 
@@ -64,7 +64,7 @@ model.compile(
 history = model.fit(
     data_gen,
     steps_per_epoch= data_loader.num_files // BATCH_SIZE,
-    epochs=10)
+    epochs=4)
 
 model_version = max([int(i) for i in os.listdir('models/') + [0] ] ) + 1 # get the latest model version
 model.save(f"models/{str(model_version)}/DocNet.h5")
