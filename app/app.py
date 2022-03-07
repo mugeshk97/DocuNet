@@ -34,7 +34,7 @@ def base64_to_image(image_b64):
         return None
 
     
-model = tf.keras.models.load_model('/home/mugesh/IB/DocuNet/models/1/DocNet_v_1.h5') # path to the model to be tested
+model = tf.keras.models.load_model('/home/mugesh/IB/DocuNet/models/2/DocNet.h5') # path to the model to be tested
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -44,7 +44,7 @@ def predict():
     image = base64_to_image(image_b64)
     if image is not None:
         # preprocess the image
-        image = preprocess_input(image, (360, 360))
+        image = preprocess_input(image, (640, 640))
         # predict the image
         if image is not None:
             output  = model.predict(image)
