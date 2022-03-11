@@ -17,7 +17,7 @@ def preprocess_input(input_image, shape, data_format=None):
     return input_image
 
 
-file_directory = "/home/mugesh/IB/DocuNet/data/test_data" # path to the folder containing the images to be tested
+file_directory = "/home/mugesh/Downloads/raw_data/" # path to the folder containing the images to be tested
 filenames = os.listdir(file_directory)
 model = tf.keras.models.load_model('/home/mugesh/IB/DocuNet/models/2/DocNet.h5') # path to the model to be tested
 df = pd.DataFrame() 
@@ -27,8 +27,7 @@ for file_ in filenames:
         img = cv2.imread(file_path)
         img = preprocess_input(img, (640, 640))
         output  = model.predict(img)
-        for i in output.keys():
-            output[i] = np.round(output[i][0], 3)  
+        output = {key: np.round(value.tolist()[0][0], 3) for key, value in output.items()}
         output['abs_filename'] = file_path
         comment = '' 
         if output['black_border'] > 0.95:
