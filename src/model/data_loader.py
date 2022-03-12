@@ -2,6 +2,7 @@ import os
 import cv2
 import numpy as np
 import tensorflow as tf
+import pandas as pd
 
 class DataLoader:
     """
@@ -42,6 +43,31 @@ class DataLoader:
                 self.__labels__.append(i)
             self.indices[i] = classes[i]
         print(f"Loaded {self.num_files} files of {len(classes)} classes")
+        return None
+
+    def load_from_report(self, file_name):
+        """
+        Loads data from a given report file.
+        Args:
+            file_name: name of the report file
+        Returns:
+            None
+        """
+        df = pd.read_json(file_name)
+        self.num_files = len(df)
+        for i in range(len(df)):
+            self.__file_names__.append(df.iloc[i]["filename"])
+            data = {}
+            for col in df.columns:
+                if col != 'filename' and col != 'instruction':
+                    if df.iloc[i][col] != "":
+                        data[col] = 1
+                    else:
+                        data[col] = 0
+                    self.__labels__.append(data)
+        # take the column names as the class names except for the filename and instruction
+        self.indices = {col in df.columns if col != 'filename' and col != 'instruction' else col: col for col in df.columns}
+        print(f"Loaded {self.num_files} files of {len(self.indices)} classes")
         return None
 
     def data_generator(self, shape = (360,360), batch_size = 4, scale = True):
