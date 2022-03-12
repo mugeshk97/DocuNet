@@ -65,8 +65,6 @@ class DataLoader:
                     else:
                         data[col] = 0
                     self.__labels__.append(data)
-        # take the column names as the class names except for the filename and instruction
-        self.indices = {col in df.columns if col != 'filename' and col != 'instruction' else col: col for col in df.columns}
         print(f"Loaded {self.num_files} files of {len(self.indices)} classes")
         return None
 
